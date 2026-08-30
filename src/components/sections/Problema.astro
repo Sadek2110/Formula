@@ -1,0 +1,49 @@
+---
+import { site } from '../../data/site';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Card from '../ui/Card.astro';
+import { Icon } from 'astro-icon/components';
+
+const { problema } = site;
+---
+<section class="section section--paper" aria-labelledby="problema-title">
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={problema.eyebrow}
+      title={problema.title}
+      text={problema.text}
+      tone="paper"
+      titleId="problema-title"
+    />
+    <div class="compare">
+      <Card tone="paper" class="compare-col compare-col--a">
+        <p class="compare-label mono">{problema.colA.label}</p>
+        <h3 class="h3">{problema.colA.title}</h3>
+        <ul class="compare-points">
+          {
+            problema.colA.points.map((point) => (
+              <li>
+                <Icon name="lucide:x" stroke-width={1.5} aria-hidden="true" />
+                <span>{point}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </Card>
+      <Card tone="paper" class="compare-col compare-col--b">
+        <p class="compare-label mono">{problema.colB.label}</p>
+        <h3 class="h3">{problema.colB.title}</h3>
+        <ul class="compare-points">
+          {
+            problema.colB.points.map((point) => (
+              <li>
+                <Icon name="lucide:check" stroke-width={1.5} aria-hidden="true" />
+                <span>{point}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </Card>
+    </div>
+  </div>
+</section>

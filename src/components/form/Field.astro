@@ -1,0 +1,70 @@
+---
+import type { FormField } from '../../data/form';
+
+interface Props {
+  field: FormField;
+  idPrefix: string;
+  labelledBy?: string;
+}
+
+const { field, idPrefix, labelledBy } = Astro.props;
+const id = `${idPrefix}-${field.name}`;
+const errId = `${id}-error`;
+const isGroup = field.type === 'radio' || field.type === 'checkbox';
+const isTextarea = field.type === 'textarea';
+---
+{
+  isGroup ? (
+    <fieldset class="field field--group" aria-labelledby={labelledBy}>
+      {!labelledBy && <legend class="field-label">{field.label}</legend>}
+      <div class="form-options">
+        {field.options?.map((option) => (
+          <>
+            <input
+              class="option-input"
+              type={field.type}
+              id={`${id}-${option.value}`}
+              name={field.name}
+              value={option.value}
+            />
+            <label class="option-label" for={`${id}-${option.value}`}>
+              {option.label}
+            </label>
+          </>
+        ))}
+      </div>
+      <p class="field-error" id={errId} data-error-for={field.name} hidden />
+    </fieldset>
+  ) : isTextarea ? (
+    <div class="field">
+      <label class="field-label" for={id}>
+        {field.label}
+        {field.required && <span class="field-required" aria-hidden="true">*</span>}
+      </label>
+      <textarea
+        id={id}
+        name={field.name}
+        placeholder={field.placeholder}
+        required={field.required}
+        rows={field.name === 'dedicacion' ? 3 : 4}
+      />
+      <p class="field-error" id={errId} data-error-for={field.name} hidden />
+    </div>
+  ) : (
+    <div class="field">
+      <label class="field-label" for={id}>
+        {field.label}
+        {field.required && <span class="field-required" aria-hidden="true">*</span>}
+      </label>
+      <input
+        id={id}
+        name={field.name}
+        type={field.type}
+        placeholder={field.placeholder}
+        required={field.required}
+        autocomplete={field.autocomplete}
+      />
+      <p class="field-error" id={errId} data-error-for={field.name} hidden />
+    </div>
+  )
+}

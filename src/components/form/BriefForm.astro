@@ -1,0 +1,380 @@
+---
+import { briefForm } from '../../data/form';
+import Step from './Step.astro';
+import Button from '../ui/Button.astro';
+
+const endpoint = (import.meta.env.PUBLIC_FORM_ENDPOINT ?? '') as string;
+const hasEndpoint = endpoint.length > 0;
+const total = briefForm.steps.length;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<div class="brief-card" data-brief>
+  <div class="brief-card-head">
+    <p class="brief-indicator mono" data-brief-indicator hidden>
+      <span data-brief-current>01</span>&#8201;/&#8201;{pad(total)}
+    </p>
+    {
+      !hasEndpoint && (
+        <p class="form-notice mono">{briefForm.states.endpointMissing}</p>
+      )
+    }
+  </div>
+  <form
+    class="brief-form"
+    method="post"
+    action={hasEndpoint ? endpoint : undefined}
+    novalidate
+    data-brief-form
+  >
+    {
+      briefForm.steps.map((step, index) => (
+        <Step step={step} index={index} total={total} submitDisabled={!hasEndpoint} />
+      ))
+    }
+    <div class="honeypot" aria-hidden="true">
+      <label for="brief-empresa">{briefForm.security.honeypotLabel}</label>
+      <input
+        type="text"
+        id="brief-empresa"
+        name={briefForm.security.honeypotName}
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+    <div class="form-status" data-brief-error hidden>
+      <p>{briefForm.states.error}</p>
+      <Button type="button" variant="secondary" size="sm" data-brief-retry>
+        {briefForm.states.retry}
+      </Button>
+    </div>
+  </form>
+  <section class="brief-success" data-brief-success hidden aria-labelledby="brief-success-title">
+    <p class="success-chip mono">{briefForm.final.chip}</p>
+    <h2 class="brief-step-title" id="brief-success-title" tabindex="-1">
+      {briefForm.final.title}
+    </h2>
+    <p class="lead muted">{briefForm.final.text}</p>
+    <div>
+      <Button href={briefForm.final.cta.href}>{briefForm.final.cta.label}</Button>
+    </div>
+  </section>
+</div>
+
+<script>
+  import { briefForm, motorPrefill, negocioLabels } from '../../data/form';
+
+  const root = document.querySelector('[data-brief]');
+  const ENDPOINT = (import.meta.env.PUBLIC_FORM_ENDPOINT ?? '') as string;
+
+  if (root) {
+    const form = root.querySelector<HTMLFormElement>('[data-brief-form]');
+    const steps = briefForm.steps;
+    const total = steps.length;
+    const t0 = Date.now();
+    let current = 0;
+
+    const stepEls = Array.from(root.querySelectorAll<HTMLElement>('[data-step]'));
+    const indicator = root.querySelector<HTMLElement>('[data-brief-indicator]');
+    const indicatorCurrent = root.querySelector<HTMLElement>('[data-brief-current]');
+    const errorBox = root.querySelector<HTMLElement>('[data-brief-error]');
+    const successPanel = root.querySelector<HTMLElement>('[data-brief-success]');
+    const submitBtn = root.querySelector<HTMLButtonElement>('[data-submit]');
+
+    if (form) {
+      const honeypot = form.querySelector<HTMLInputElement>(
+        `input[name="${briefForm.security.honeypotName}"]`,
+      );
+
+      const pad = (n: number) => String(n).padStart(2, '0');
+
+      const namedInput = (
+        name: string,
+      ): HTMLInputElement | HTMLTextAreaElement | null => {
+        const el = form.elements.namedItem(name);
+        return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement
+          ? el
+          : null;
+      };
+
+      const errorEl = (name: string) =>
+        root.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+
+      const setError = (name: string, message: string) => {
+        const el = errorEl(name);
+        if (el) {
+          el.textContent = message;
+          el.hidden = false;
+        }
+        form
+          .querySelectorAll<HTMLInputElement>(`input[name="${name}"], textarea[name="${name}"]`)
+          .forEach((input) => {
+            input.setAttribute('aria-invalid', 'true');
+            if (el) input.setAttribute('aria-describedby', el.id);
+          });
+      };
+
+      const clearError = (name: string) => {
+        const el = errorEl(name);
+        if (el) {
+          el.textContent = '';
+          el.hidden = true;
+        }
+        form
+          .querySelectorAll<HTMLInputElement>(`input[name="${name}"], textarea[name="${name}"]`)
+          .forEach((input) => {
+            input.removeAttribute('aria-invalid');
+            if (el) input.removeAttribute('aria-describedby');
+          });
+      };
+
+      const checkStep = (index: number): string | null => {
+        const step = steps[index];
+        if (!step) return null;
+        for (const field of step.fields) {
+          if (field.type === 'radio' || field.type === 'checkbox') continue;
+          const input = namedInput(field.name);
+          if (!input) continue;
+          const value = input.value.trim();
+          if (field.required && !value) return field.name;
+          if (
+            field.type === 'email' &&
+            value &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          ) {
+            return field.name;
+          }
+        }
+        return null;
+      };
+
+      const validateStep = (index: number, focus = true): boolean => {
+        const step = steps[index];
+        if (!step) return true;
+        let firstInvalid: HTMLInputElement | HTMLTextAreaElement | null = null;
+        let firstInvalidName: string | null = null;
+        for (const field of step.fields) {
+          if (field.type === 'radio' || field.type === 'checkbox') continue;
+          const input = namedInput(field.name);
+          if (!input) continue;
+          const value = input.value.trim();
+          let message = '';
+          if (field.required && !value) message = briefForm.validation.required;
+          else if (
+            field.type === 'email' &&
+            value &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          ) {
+            message = briefForm.validation.email;
+          }
+          if (message) {
+            setError(field.name, message);
+            if (!firstInvalid) {
+              firstInvalid = input;
+              firstInvalidName = field.name;
+            }
+          } else {
+            clearError(field.name);
+          }
+        }
+        if (firstInvalid && focus) {
+          firstInvalid.focus();
+        }
+        return firstInvalidName === null;
+      };
+
+      const collect = (): Record<string, string | string[]> => {
+        const data: Record<string, string | string[]> = {};
+        for (const step of steps) {
+          for (const field of step.fields) {
+            if (field.type === 'checkbox') {
+              const checked = Array.from(
+                form.querySelectorAll<HTMLInputElement>(
+                  `input[name="${field.name}"]:checked`,
+                ),
+              ).map((input) => input.value);
+              if (checked.length > 0) data[field.name] = checked;
+            } else {
+              const input = namedInput(field.name);
+              if (!input) continue;
+              const value = input.value.trim();
+              if (value) data[field.name] = value;
+            }
+          }
+        }
+        return data;
+      };
+
+      const save = () => {
+        try {
+          localStorage.setItem(briefForm.storageKey, JSON.stringify(collect()));
+        } catch {
+          /* almacenamiento no disponible */
+        }
+      };
+
+      const restore = (data: Record<string, unknown>) => {
+        for (const [name, value] of Object.entries(data)) {
+          if (name === briefForm.security.honeypotName) continue;
+          if (Array.isArray(value)) {
+            for (const item of value) {
+              const input = form.querySelector<HTMLInputElement>(
+                `input[name="${name}"][value="${item}"]`,
+              );
+              if (input) input.checked = true;
+            }
+          } else if (typeof value === 'string') {
+            const single = namedInput(name);
+            if (single) {
+              single.value = value;
+            } else {
+              const input = form.querySelector<HTMLInputElement>(
+                `input[name="${name}"][value="${value}"]`,
+              );
+              if (input) input.checked = true;
+            }
+          }
+        }
+      };
+
+      const showStep = (index: number, focus = true) => {
+        current = index;
+        stepEls.forEach((el, i) => {
+          el.hidden = i !== index;
+        });
+        if (indicator) indicator.hidden = false;
+        if (indicatorCurrent) indicatorCurrent.textContent = pad(index + 1);
+        if (focus) {
+          stepEls[index]
+            ?.querySelector<HTMLElement>('.brief-step-title')
+            ?.focus();
+        }
+      };
+
+      /* Inicialización: sin JS, todos los pasos quedan visibles como formulario largo */
+      stepEls.forEach((el, i) => {
+        el.hidden = i !== 0;
+      });
+      root
+        .querySelectorAll<HTMLElement>('[data-nav]')
+        .forEach((button) => {
+          button.hidden = false;
+        });
+      if (indicator) indicator.hidden = false;
+
+      /* Autosave: restaurar y precargar querystring del motor */
+      try {
+        const raw = localStorage.getItem(briefForm.storageKey);
+        if (raw) restore(JSON.parse(raw) as Record<string, unknown>);
+      } catch {
+        /* valor corrupto: se ignora */
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const negocio = params.get('negocio');
+      if (negocio && negocioLabels[negocio]) {
+        const dedicacion = namedInput('dedicacion');
+        if (dedicacion) dedicacion.value = negocioLabels[negocio]!;
+      }
+      const prefillOption = (param: string, field: string, map: Record<string, string>) => {
+        const value = params.get(param);
+        if (!value) return;
+        const mapped = map[value];
+        if (!mapped) return;
+        const input = form.querySelector<HTMLInputElement>(
+          `input[name="${field}"][value="${mapped}"]`,
+        );
+        if (input) input.checked = true;
+      };
+      prefillOption('objetivo', 'objetivo', { ...motorPrefill.objetivo });
+      prefillOption('frecuencia', 'frecuencia', { ...motorPrefill.frecuencia });
+      prefillOption('actualiza', 'actualiza', { ...motorPrefill.actualiza });
+      save();
+
+      /* Navegación */
+      root.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        const button = event.target.closest<HTMLElement>('[data-nav]');
+        if (!button) return;
+        if (button.dataset.nav === 'back') {
+          showStep(Math.max(0, current - 1));
+        } else if (button.dataset.nav === 'next') {
+          if (validateStep(current)) {
+            save();
+            showStep(Math.min(total - 1, current + 1));
+          }
+        }
+      });
+
+      /* Cambios: limpiar error del campo y autosave */
+      form.addEventListener('input', (event) => {
+        if (event.target instanceof HTMLInputElement ||
+            event.target instanceof HTMLTextAreaElement) {
+          if (event.target.name) clearError(event.target.name);
+        }
+      });
+      form.addEventListener('change', save);
+      form.addEventListener('input', save);
+
+      /* Envío */
+      const setSending = (sending: boolean) => {
+        if (!submitBtn) return;
+        submitBtn.disabled = sending || !ENDPOINT;
+        submitBtn.textContent = sending ? briefForm.states.sending : briefForm.submitLabel;
+      };
+
+      const showError = () => {
+        if (errorBox) errorBox.hidden = false;
+        setSending(false);
+      };
+
+      const handleSubmit = async (event: SubmitEvent) => {
+        event.preventDefault();
+        if (!ENDPOINT) return;
+        if (errorBox) errorBox.hidden = true;
+        if (honeypot && honeypot.value !== '') return;
+        if (Date.now() - t0 < briefForm.security.minSeconds * 1000) {
+          showError();
+          return;
+        }
+        for (let i = 0; i < total; i++) {
+          if (!validateStep(i, false)) {
+            showStep(i, false);
+            validateStep(i, true);
+            return;
+          }
+        }
+        setSending(true);
+        try {
+          const response = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(collect()),
+          });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          form.hidden = true;
+          if (indicator) indicator.hidden = true;
+          if (successPanel) {
+            successPanel.hidden = false;
+            successPanel
+              .querySelector<HTMLElement>('#brief-success-title')
+              ?.focus();
+          }
+          try {
+            localStorage.removeItem(briefForm.storageKey);
+          } catch {
+            /* almacenamiento no disponible */
+          }
+        } catch {
+          showError();
+        }
+      };
+
+      form.addEventListener('submit', handleSubmit);
+      root
+        .querySelector('[data-brief-retry]')
+        ?.addEventListener('click', () => {
+          form.requestSubmit();
+        });
+    }
+  }
+</script>

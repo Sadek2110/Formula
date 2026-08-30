@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/sections/Hero.astro';
+import Problema from '../components/sections/Problema.astro';
+import Formula from '../components/sections/Formula.astro';
+import Motor from '../components/sections/Motor.astro';
+import Ejemplos from '../components/sections/Ejemplos.astro';
+import Produccion from '../components/sections/Produccion.astro';
+import Entregables from '../components/sections/Entregables.astro';
+import Calidad from '../components/sections/Calidad.astro';
+import CtaFinal from '../components/sections/CtaFinal.astro';
+import { site } from '../data/site';
+---
+<Base title={site.seo.title} description={site.seo.description}>
+  <Hero />
+  <Problema />
+  <Formula />
+  <Motor />
+  <Ejemplos />
+  <Produccion />
+  <Entregables />
+  <Calidad />
+  <CtaFinal />
+</Base>

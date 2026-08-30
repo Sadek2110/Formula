@@ -1,0 +1,51 @@
+---
+import type { FormStep } from '../../data/form';
+import { briefForm } from '../../data/form';
+import Field from './Field.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  step: FormStep;
+  index: number;
+  total: number;
+  submitDisabled?: boolean;
+}
+
+const { step, index, total, submitDisabled = false } = Astro.props;
+const idPrefix = `step-${index + 1}`;
+const titleId = `${idPrefix}-title`;
+const isLast = index === total - 1;
+---
+<section class="brief-step" data-step={index} aria-labelledby={titleId}>
+  <div class="brief-step-head">
+    <p class="brief-step-chip mono">
+      {String(index + 1).padStart(2, '0')} — {step.label}
+    </p>
+    <h2 class="brief-step-title" id={titleId} tabindex="-1">
+      {step.title}
+    </h2>
+  </div>
+  {step.fields.map((field) => (
+    <Field field={field} idPrefix={idPrefix} labelledBy={field.hideLabel ? titleId : undefined} />
+  ))}
+  <div class="form-nav">
+    {
+      index > 0 && (
+        <Button type="button" variant="secondary" data-nav="back" hidden>
+          {briefForm.nav.back}
+        </Button>
+      )
+    }
+    {
+      isLast ? (
+        <Button type="submit" data-submit disabled={submitDisabled}>
+          {briefForm.submitLabel}
+        </Button>
+      ) : (
+        <Button type="button" data-nav="next" hidden>
+          {briefForm.nav.next}
+        </Button>
+      )
+    }
+  </div>
+</section>

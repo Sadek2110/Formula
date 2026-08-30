@@ -1,0 +1,35 @@
+---
+import { Picture } from 'astro:assets';
+import { site } from '../../data/site';
+import Button from '../ui/Button.astro';
+import formulaComplete from '../../assets/formula/formula-complete.jpg';
+
+const { ctaFinal } = site;
+---
+<section class="section cta-final" aria-labelledby="cta-final-title">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div class="cta-copy">
+        <p class="eyebrow">{ctaFinal.eyebrow}</p>
+        <h2 class="h2" id="cta-final-title">{ctaFinal.title}</h2>
+        <p class="lead muted cta-text">{ctaFinal.text}</p>
+        <div class="hero-ctas">
+          <Button href={ctaFinal.ctaPrimary.href}>{ctaFinal.ctaPrimary.label}</Button>
+          <Button href={ctaFinal.ctaSecondary.href} variant="secondary">
+            {ctaFinal.ctaSecondary.label}
+          </Button>
+        </div>
+      </div>
+      <div class="cta-visual">
+        <Picture
+          src={formulaComplete}
+          alt={ctaFinal.imageAlt}
+          widths={[480, 640, 820, 1024]}
+          sizes="(min-width: 1024px) 40vw, 85vw"
+          formats={['avif', 'webp']}
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+---
+import { site } from '../../data/site';
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-logo">{site.footer.logo}</p>
+        <p class="footer-text">{site.footer.text}</p>
+      </div>
+      <nav aria-label="Navegación del pie">
+        <ul class="footer-links">
+          {
+            site.footer.nav.map((link) => (
+              <li>
+                <a class="footer-link" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav aria-label="Enlaces legales">
+        <ul class="footer-links">
+          {
+            site.footer.legal.map((link) => (
+              <li>
+                <a class="footer-link" href={link.href} aria-disabled="true">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-copy">{site.footer.copyright}</p>
+  </div>
+</footer>

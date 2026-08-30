@@ -1,0 +1,40 @@
+---
+import { phases, production } from '../../data/production';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { Icon } from 'astro-icon/components';
+---
+<section class="section section--paper" id="proceso" aria-labelledby="produccion-title">
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={production.eyebrow}
+      title={production.title}
+      text={production.text}
+      tone="paper"
+      titleId="produccion-title"
+    />
+    <div class="phases">
+      {
+        phases.map((phase, index) => (
+          <details class:list={['phase', index === phases.length - 1 && 'phase--final']}>
+            <summary>
+              <span class="phase-n mono" aria-hidden="true">
+                {phase.n}
+              </span>
+              <span class="phase-name">{phase.name}</span>
+              <span class="phase-chevron" aria-hidden="true">
+                <Icon name="lucide:chevron-down" stroke-width={1.5} />
+              </span>
+            </summary>
+            <div class="phase-body">
+              <p class="phase-text">{phase.text}</p>
+              <p class="phase-output">
+                <span class="phase-output-label mono">{production.salidaLabel}</span>
+                <span class="phase-output-value">{phase.output}</span>
+              </p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

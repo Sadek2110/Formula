@@ -1,0 +1,9 @@
+---
+interface Props {
+  tone?: 'dark' | 'paper';
+  class?: string;
+}
+
+const { tone = 'dark', class: className } = Astro.props;
+---
+<span class:list={['tag', tone === 'paper' && 'tag--paper', className]}><slot /></span>

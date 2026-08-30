@@ -1,0 +1,41 @@
+---
+import { site } from '../../data/site';
+import Button from '../ui/Button.astro';
+import MobileMenu from './MobileMenu.astro';
+---
+<header class="navbar" data-navbar>
+  <div class="wrap navbar-inner">
+    <a class="navbar-logo" href="/">{site.name}</a>
+    <nav class="navbar-links" aria-label="Navegación principal">
+      {
+        site.nav.map((link) => (
+          <a class="navbar-link" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="navbar-actions">
+      <Button href={site.navCta.href} size="sm">{site.navCta.label}</Button>
+      <MobileMenu />
+    </div>
+  </div>
+</header>
+
+<style>
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+</style>
+
+<script>
+  const navbar = document.querySelector('[data-navbar]');
+
+  if (navbar) {
+    const update = () => navbar.classList.toggle('is-scrolled', window.scrollY > 8);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>

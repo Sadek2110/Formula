@@ -1,0 +1,79 @@
+---
+import { Picture } from 'astro:assets';
+import { formula, formulaSteps } from '../../data/formula';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Tag from '../ui/Tag.astro';
+import sevenLayers from '../../assets/formula/formula-seven-layers.jpg';
+---
+<section class="section" id="metodo" aria-labelledby="metodo-title">
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={formula.eyebrow}
+      title={formula.title}
+      text={formula.text}
+      titleId="metodo-title"
+    />
+    <div class="formula-grid">
+      <ol class="steps">
+        <div class="steps-progress" data-steps-progress aria-hidden="true"></div>
+        {
+          formulaSteps.map((step, index) => (
+            <li class="step" data-step data-step-index={index}>
+              <span class="step-n" aria-hidden="true">
+                {step.n}
+              </span>
+              <div class="step-body">
+                <h3 class="step-title">{step.title}</h3>
+                <p class="step-subtitle">{step.subtitle}</p>
+                <p class="step-text">{step.text}</p>
+                <Tag>{step.tag}</Tag>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="formula-visual">
+        <div class="formula-visual-sticky" data-formula-visual>
+          <Picture
+            src={sevenLayers}
+            alt={formula.imageAlt}
+            widths={[480, 640, 820, 1024]}
+            sizes="(min-width: 1024px) 40vw, 90vw"
+            formats={['avif', 'webp']}
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const steps = Array.from(document.querySelectorAll<HTMLElement>('[data-step]'));
+  const progress = document.querySelector<HTMLElement>('[data-steps-progress]');
+
+  if (steps.length > 0) {
+    const setActive = (index: number) => {
+      steps.forEach((step, i) => {
+        step.classList.toggle('is-active', i === index);
+        if (i === index) step.setAttribute('aria-current', 'step');
+        else step.removeAttribute('aria-current');
+      });
+      if (progress) progress.style.blockSize = `${((index + 0.5) / steps.length) * 100}%`;
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const index = steps.indexOf(entry.target as HTMLElement);
+            if (index !== -1) setActive(index);
+          }
+        },
+        { rootMargin: '-35% 0px -35% 0px', threshold: 0 },
+      );
+      steps.forEach((step) => observer.observe(step));
+    }
+  }
+</script>

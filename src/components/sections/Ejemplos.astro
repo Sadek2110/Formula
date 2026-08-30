@@ -1,0 +1,103 @@
+---
+import { examples, examplesCopy } from '../../data/examples';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { Icon } from 'astro-icon/components';
+---
+<section class="section section--paper" aria-labelledby="ejemplos-title">
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={examplesCopy.eyebrow}
+      title={examplesCopy.title}
+      tone="paper"
+      titleId="ejemplos-title"
+    />
+    <div class="examples" data-examples>
+      <fieldset class="examples-tabs">
+        <legend class="sr-only">{examplesCopy.groupLabel}</legend>
+        {
+          examples.map((example, index) => (
+            <>
+              <input
+                class="option-input"
+                type="radio"
+                id={`example-${example.id}`}
+                name="example"
+                value={example.id}
+                checked={index === 0}
+              />
+              <label class="examples-tab mono" for={`example-${example.id}`}>
+                {example.label}
+              </label>
+            </>
+          ))
+        }
+      </fieldset>
+      <div class="examples-panels" aria-live="polite">
+        {
+          examples.map((example) => (
+            <article class="example-panel card card--paper" data-example-panel={example.id}>
+              <div class="example-head">
+                <span class="example-icon" aria-hidden="true">
+                  <Icon name={example.icon} stroke-width={1.5} />
+                </span>
+                <div>
+                  <p class="example-label mono">{example.label}</p>
+                  <h3 class="h3">{example.title}</h3>
+                </div>
+              </div>
+              <div class="example-diagram">
+                <ol class="example-decisions">
+                  <li>
+                    <span class="mono">{examplesCopy.labels.tipo}</span>
+                    <strong>{example.tipo}</strong>
+                  </li>
+                  <li>
+                    <span class="mono">{examplesCopy.labels.render}</span>
+                    <strong>{example.render}</strong>
+                  </li>
+                  <li>
+                    <span class="mono">{examplesCopy.labels.cms}</span>
+                    <strong>{example.cms}</strong>
+                  </li>
+                  <li>
+                    <span class="mono">{examplesCopy.labels.visual}</span>
+                    <strong>{example.visual}</strong>
+                  </li>
+                </ol>
+                <ul class="example-extras">
+                  {example.extras.map((extra) => (
+                    <li class="tag tag--paper">{extra}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const examplesEl = document.querySelector('[data-examples]');
+
+  if (examplesEl) {
+    const inputs = Array.from(examplesEl.querySelectorAll<HTMLInputElement>('input[name="example"]'));
+    const panels = Array.from(examplesEl.querySelectorAll<HTMLElement>('[data-example-panel]'));
+
+    const show = (id: string) => {
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.examplePanel !== id;
+      });
+    };
+
+    const checked = inputs.find((input) => input.checked);
+    if (checked) show(checked.value);
+
+    examplesEl.addEventListener('change', (event) => {
+      if (event.target instanceof HTMLInputElement && event.target.name === 'example') {
+        show(event.target.value);
+      }
+    });
+  }
+</script>

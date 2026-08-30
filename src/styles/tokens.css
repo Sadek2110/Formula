@@ -1,0 +1,61 @@
+/* ============================================================
+   FÓRMULA — tokens de diseño
+   Única fuente de verdad de color, tipografía, radios y layout.
+   Ver docs/brief-maestro.md §3 y §4.
+   ============================================================ */
+
+:root {
+  /* Dark system */
+  --bg: #0A0B0A;
+  --surface: #111310;
+  --surface-2: #171A16;
+  --border: #292D27;
+  --text: #F3F0E8;
+  --text-muted: #9CA198;
+
+  /* Accents */
+  --accent: #C7FF5E;
+  --accent-violet: #8D7CFF;
+  --accent-cyan: #6FE7DF;
+
+  /* Light contrast section */
+  --light-bg: #F2EFE7;
+  --light-text: #151614;
+  --light-muted: #666B63;
+
+  /* Estados */
+  --danger: #FF9776;
+
+  /* Layout */
+  --wrap-max: 1320px;
+  --navbar-h: 76px;
+}
+
+/* Tipografía y radios, expuestos a Tailwind */
+
+@theme {
+  --font-sans: 'Manrope Variable', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --radius-sm: 10px;
+  --radius-card: 18px;
+  --radius-panel: 28px;
+}
+
+/* Colores expuestos a Tailwind como utilidades (bg-bg, text-ink, …) */
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-ink: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-violet: var(--accent-violet);
+  --color-cyan: var(--accent-cyan);
+  --color-paper: var(--light-bg);
+  --color-paper-ink: var(--light-text);
+  --color-paper-muted: var(--light-muted);
+  --color-danger: var(--danger);
+}

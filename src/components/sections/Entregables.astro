@@ -1,0 +1,49 @@
+---
+import { deliverables, deliverablesCopy } from '../../data/deliverables';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { Icon } from 'astro-icon/components';
+
+const S = 'viewBox="0 0 160 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
+
+const visuals: Record<string, string> = {
+  wire: `<svg ${S}><rect x="2" y="3" width="54" height="9" rx="4.5" class="mv-accent"/><line x1="2" y1="22" x2="122" y2="22"/><line x1="2" y1="30" x2="96" y2="30"/><line x1="2" y1="38" x2="110" y2="38"/></svg>`,
+  grid: `<svg ${S}><rect x="2" y="3" width="44" height="17" rx="4"/><rect x="58" y="3" width="44" height="17" rx="4" class="mv-accent"/><rect x="114" y="3" width="44" height="17" rx="4"/><rect x="2" y="26" width="44" height="15" rx="4"/><rect x="58" y="26" width="44" height="15" rx="4"/><rect x="114" y="26" width="44" height="15" rx="4"/></svg>`,
+  snippet: `<svg ${S}><line x1="2" y1="6" x2="118" y2="6"/><line x1="2" y1="15" x2="140" y2="15"/><line x1="2" y1="24" x2="86" y2="24"/><line x1="2" y1="33" x2="132" y2="33"/><line x1="2" y1="42" x2="52" y2="42" class="mv-accent"/></svg>`,
+  files: `<svg ${S}><rect x="2" y="3" width="156" height="10" rx="5"/><circle cx="11" cy="8" r="1.5" class="mv-fill-accent" stroke="none"/><rect x="2" y="17" width="156" height="10" rx="5"/><circle cx="11" cy="22" r="1.5" class="mv-fill-accent" stroke="none"/><rect x="2" y="31" width="156" height="10" rx="5"/><circle cx="11" cy="36" r="1.5" stroke="currentColor"/></svg>`,
+  chips: `<svg ${S}><rect x="2" y="12" width="28" height="20" rx="6" class="mv-fill-accent" stroke="none"/><rect x="36" y="12" width="28" height="20" rx="6" class="mv-fill-violet" stroke="none"/><rect x="70" y="12" width="28" height="20" rx="6" class="mv-fill-cyan" stroke="none"/><rect x="104" y="12" width="28" height="20" rx="6"/><rect x="138" y="12" width="20" height="20" rx="6" stroke-dasharray="4 4"/></svg>`,
+  url: `<svg ${S}><circle cx="8" cy="8" r="2.5"/><circle cx="17" cy="8" r="2.5"/><circle cx="26" cy="8" r="2.5" class="mv-accent"/><rect x="38" y="2" width="120" height="12" rx="6"/><line x1="2" y1="26" x2="158" y2="26" class="mv-accent"/><line x1="2" y1="36" x2="92" y2="36"/></svg>`,
+  nodes: `<svg ${S}><circle cx="10" cy="22" r="6"/><circle cx="70" cy="10" r="6" class="mv-accent"/><circle cx="70" cy="34" r="6"/><circle cx="130" cy="22" r="6"/><line x1="15" y1="19" x2="64" y2="12"/><line x1="15" y1="25" x2="64" y2="32"/><line x1="76" y1="13" x2="125" y2="20"/><line x1="76" y1="31" x2="125" y2="24"/></svg>`,
+  checks: `<svg ${S}><path d="M2 7l4 4 7-8" class="mv-accent"/><line x1="20" y1="7" x2="118" y2="7"/><path d="M2 22l4 4 7-8" class="mv-accent"/><line x1="20" y1="22" x2="96" y2="22"/><path d="M2 37l4 4 7-8" class="mv-accent"/><line x1="20" y1="37" x2="108" y2="37"/></svg>`,
+  keys: `<svg ${S}><circle cx="22" cy="22" r="9"/><line x1="31" y1="22" x2="86" y2="22"/><line x1="70" y1="22" x2="70" y2="30"/><line x1="86" y1="22" x2="86" y2="30"/><rect x="104" y="8" width="54" height="28" rx="8" stroke-dasharray="5 5"/><path d="M116 22h26m0 0l-6-6m6 6l-6 6" class="mv-accent"/></svg>`,
+};
+---
+<section class="section" aria-labelledby="entregables-title">
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={deliverablesCopy.eyebrow}
+      title={deliverablesCopy.title}
+      text={deliverablesCopy.text}
+      titleId="entregables-title"
+    />
+    <div class="bento">
+      {
+        deliverables.map((card) => (
+          <article
+            class:list={[
+              'card',
+              'bento-item',
+              card.size === 'lg' ? 'bento-item--lg' : 'bento-item--sm',
+            ]}
+          >
+            <span class="bento-icon" aria-hidden="true">
+              <Icon name={card.icon} stroke-width={1.5} />
+            </span>
+            <h3 class="bento-title">{card.title}</h3>
+            <p class="bento-text">{card.text}</p>
+            <div class="bento-visual" set:html={visuals[card.visual]} />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
