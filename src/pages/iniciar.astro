@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import BriefForm from '../components/form/BriefForm.astro';
+import { briefForm } from '../data/form';
+import { site } from '../data/site';
+---
+<Base title={site.seo.iniciarTitle} description={site.seo.iniciarDescription}>
+  <section class="section brief-page">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">{briefForm.header.eyebrow}</p>
+      <h1 class="h2">{briefForm.header.title}</h1>
+      <p class="lead muted brief-page-text">{briefForm.header.text}</p>
+      <BriefForm />
+    </div>
+  </section>
+</Base>

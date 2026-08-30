@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://formula.dksaa.com/sitemap-index.xml

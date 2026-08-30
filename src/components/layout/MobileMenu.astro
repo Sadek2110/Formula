@@ -1,0 +1,101 @@
+---
+import { site } from '../../data/site';
+import { Icon } from 'astro-icon/components';
+---
+<button
+  class="menu-toggle"
+  type="button"
+  data-menu-toggle
+  aria-expanded="false"
+  aria-controls="menu-overlay"
+  aria-label="Abrir el menú"
+>
+  <Icon name="lucide:menu" stroke-width={1.5} aria-hidden="true" />
+</button>
+
+<div class="menu" id="menu-overlay" data-menu hidden>
+  <div class="wrap menu-inner">
+    <div class="menu-top">
+      <button class="menu-toggle" type="button" data-menu-close aria-label="Cerrar el menú">
+        <Icon name="lucide:x" stroke-width={1.5} aria-hidden="true" />
+      </button>
+    </div>
+    <nav class="menu-nav" aria-label="Menú móvil">
+      {
+        site.nav.map((link) => (
+          <a class="menu-link" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+      <a class="btn btn-primary" href={site.navCta.href}>{site.navCta.label}</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (toggle instanceof HTMLElement && menu) {
+    const closeBtn = menu.querySelector('[data-menu-close]');
+
+    const focusables = () =>
+      Array.from(menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+
+    let lastFocused: HTMLElement | null = null;
+
+    const open = () => {
+      lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      menu.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      const first = focusables()[0];
+      first?.focus();
+    };
+
+    const close = () => {
+      menu.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      lastFocused?.focus();
+    };
+
+    toggle.addEventListener('click', () => {
+      if (menu.hidden) open();
+      else close();
+    });
+
+    closeBtn?.addEventListener('click', close);
+
+    menu.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLAnchorElement) close();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (menu.hidden) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close();
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        const items = focusables();
+        if (items.length === 0) return;
+
+        const first = items[0]!;
+        const last = items[items.length - 1]!;
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+</script>

@@ -1,0 +1,172 @@
+---
+import { engineCopy, engineQuestions } from '../../data/engine';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+<section class="section section--motor" id="decisiones" aria-labelledby="motor-title">
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={engineCopy.eyebrow}
+      title={engineCopy.title}
+      text={engineCopy.text}
+      titleId="motor-title"
+    />
+    <div class="motor-grid">
+      <form class="motor-form" data-motor-form>
+        {
+          engineQuestions.map((question, index) => (
+            <fieldset class="motor-question">
+              <legend class="motor-legend">
+                <span class="motor-legend-n mono" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                {question.legend}
+              </legend>
+              <div class="motor-options">
+                {question.options.map((option) => {
+                  const inputId = `motor-${question.id}-${option.id}`;
+                  return (
+                    <>
+                      <input
+                        class="option-input"
+                        type="radio"
+                        id={inputId}
+                        name={`motor-${question.id}`}
+                        value={option.id}
+                      />
+                      <label class="option-label" for={inputId}>
+                        {option.label}
+                      </label>
+                    </>
+                  );
+                })}
+              </div>
+            </fieldset>
+          ))
+        }
+      </form>
+      <div class="motor-aside">
+        <div class="terminal">
+          <div class="terminal-head" aria-hidden="true">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot terminal-dot--accent"></span>
+            <span class="terminal-title mono">{engineCopy.header}</span>
+          </div>
+          <div class="terminal-body">
+            <div aria-live="polite" data-motor-live>
+              <p class="motor-empty" data-motor-empty>{engineCopy.empty}</p>
+              <div class="motor-rec" data-motor-rec hidden>
+                <p class="motor-tipo" data-motor-tipo></p>
+                <dl class="terminal-rows">
+                  <div class="terminal-row">
+                    <dt class="mono">{engineCopy.labels.arquitectura}</dt>
+                    <dd data-motor-arquitectura></dd>
+                  </div>
+                  <div class="terminal-row">
+                    <dt class="mono">{engineCopy.labels.cms}</dt>
+                    <dd data-motor-cms></dd>
+                  </div>
+                  <div class="terminal-row">
+                    <dt class="mono">{engineCopy.labels.visual}</dt>
+                    <dd data-motor-visual></dd>
+                  </div>
+                  <div class="terminal-row">
+                    <dt class="mono">{engineCopy.labels.prioridades}</dt>
+                    <dd data-motor-prioridades></dd>
+                  </div>
+                </dl>
+                <div class="motor-motivos">
+                  <p class="motor-motivos-label mono">{engineCopy.labels.motivos}</p>
+                  <ul class="motor-motivos-list" data-motor-motivos></ul>
+                </div>
+                <p class="motor-partial mono" data-motor-partial hidden>{engineCopy.partial}</p>
+              </div>
+            </div>
+            <p class="motor-disclaimer mono">{engineCopy.disclaimer}</p>
+            <a class="btn btn-primary motor-cta" data-motor-cta href={engineCopy.ctaHref}>
+              {engineCopy.cta}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { resolve } from '../../lib/engine';
+  import { engineCopy, engineQuestions } from '../../data/engine';
+  import type { Answers } from '../../data/engine';
+
+  const form = document.querySelector<HTMLFormElement>('[data-motor-form]');
+  const live = document.querySelector<HTMLElement>('[data-motor-live]');
+
+  if (form && live) {
+    const empty = live.querySelector<HTMLElement>('[data-motor-empty]');
+    const rec = live.querySelector<HTMLElement>('[data-motor-rec]');
+    const tipo = live.querySelector<HTMLElement>('[data-motor-tipo]');
+    const arquitectura = live.querySelector<HTMLElement>('[data-motor-arquitectura]');
+    const cms = live.querySelector<HTMLElement>('[data-motor-cms]');
+    const visual = live.querySelector<HTMLElement>('[data-motor-visual]');
+    const prioridades = live.querySelector<HTMLElement>('[data-motor-prioridades]');
+    const motivos = live.querySelector<HTMLUListElement>('[data-motor-motivos]');
+    const partial = live.querySelector<HTMLElement>('[data-motor-partial]');
+    const cta = document.querySelector<HTMLAnchorElement>('[data-motor-cta]');
+
+    const readAnswers = (): Answers => {
+      const answers: Answers = {};
+      for (const question of engineQuestions) {
+        const input = form.querySelector<HTMLInputElement>(
+          `input[name="motor-${question.id}"]:checked`,
+        );
+        if (input) (answers as Record<string, string>)[question.id] = input.value;
+      }
+      return answers;
+    };
+
+    const update = () => {
+      const answers = readAnswers();
+      const recommendation = resolve(answers);
+      const answered = engineQuestions.filter((q) => answers[q.id] !== undefined).length;
+      const complete = answered === engineQuestions.length;
+
+      if (empty && rec) {
+        if (recommendation) {
+          empty.hidden = true;
+          rec.hidden = false;
+          if (tipo) tipo.textContent = recommendation.tipo;
+          if (arquitectura) arquitectura.textContent = recommendation.arquitectura;
+          if (cms) cms.textContent = recommendation.cms;
+          if (visual) visual.textContent = recommendation.visual;
+          if (prioridades) prioridades.textContent = recommendation.prioridades.join(' · ');
+          if (motivos) {
+            motivos.replaceChildren(
+              ...recommendation.motivos.map((motivo) => {
+                const li = document.createElement('li');
+                li.textContent = motivo;
+                return li;
+              }),
+            );
+          }
+          if (partial) partial.hidden = complete;
+        } else {
+          empty.hidden = false;
+          rec.hidden = true;
+        }
+      }
+
+      if (cta) {
+        const params = new URLSearchParams();
+        for (const question of engineQuestions) {
+          const value = answers[question.id];
+          if (value) params.set(question.id, value);
+        }
+        const query = params.toString();
+        cta.href = query ? `${engineCopy.ctaHref}?${query}` : engineCopy.ctaHref;
+      }
+    };
+
+    form.addEventListener('change', update);
+    update();
+  }
+</script>

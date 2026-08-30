@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
+import { site } from '../data/site';
+---
+<Base title={site.seo.notFoundTitle} description={site.seo.description}>
+  <section class="section notfound">
+    <div class="wrap notfound-inner">
+      <p class="mono notfound-code">{site.notFound.code}</p>
+      <h1 class="h2">{site.notFound.title}</h1>
+      <p class="lead muted">{site.notFound.text}</p>
+      <Button href={site.notFound.cta.href}>{site.notFound.cta.label}</Button>
+    </div>
+  </section>
+</Base>

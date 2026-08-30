@@ -1,0 +1,45 @@
+---
+import { Picture } from 'astro:assets';
+import { site } from '../../data/site';
+import Button from '../ui/Button.astro';
+import heroDesktop from '../../assets/formula/hero-formula-desktop.jpg';
+import heroMobile from '../../assets/formula/hero-formula-mobile.jpg';
+
+const { hero } = site;
+---
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1 class="display">{hero.title}</h1>
+      <p class="lead muted hero-text">{hero.text}</p>
+      <div class="hero-ctas">
+        <Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
+        <Button href={hero.ctaSecondary.href} variant="secondary">{hero.ctaSecondary.label}</Button>
+      </div>
+    </div>
+    <div class="hero-visual-mobile">
+      <Picture
+        src={heroMobile}
+        alt={hero.imageAltMobile}
+        widths={[480, 640, 800]}
+        sizes="(min-width: 480px) 480px, 85vw"
+        formats={['avif', 'webp']}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <p class="hero-micro mono">{hero.microcopy}</p>
+  </div>
+  <div class="hero-visual-desktop" data-hero-visual>
+    <Picture
+      src={heroDesktop}
+      alt={hero.imageAltDesktop}
+      widths={[640, 820, 1024, 1280]}
+      sizes="55vw"
+      formats={['avif', 'webp']}
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+</section>

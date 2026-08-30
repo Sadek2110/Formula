@@ -1,0 +1,49 @@
+---
+import { Picture } from 'astro:assets';
+import { pillars, qualityCopy } from '../../data/quality';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { Icon } from 'astro-icon/components';
+import formulaDetail from '../../assets/formula/formula-detail.jpg';
+---
+<section class="section section--calidad" id="calidad" aria-labelledby="calidad-title">
+  <div class="calidad-bg" aria-hidden="true">
+    <Picture
+      src={formulaDetail}
+      alt=""
+      widths={[480, 640, 820]}
+      sizes="45vw"
+      formats={['avif', 'webp']}
+      loading="lazy"
+    />
+  </div>
+  <div class="wrap">
+    <SectionHeader
+      eyebrow={qualityCopy.eyebrow}
+      title={qualityCopy.title}
+      text={qualityCopy.text}
+      titleId="calidad-title"
+    />
+    <div class="pillars">
+      {
+        pillars.map((pillar) => (
+          <article class="pillar">
+            <span class="pillar-icon" aria-hidden="true">
+              <Icon name={pillar.icon} stroke-width={1.5} />
+            </span>
+            <p class="pillar-label mono">{pillar.label}</p>
+            <h3 class="pillar-title">{pillar.title}</h3>
+            <ul class="pillar-points">
+              {pillar.points.map((point) => (
+                <li>
+                  <Icon name="lucide:check" stroke-width={1.5} aria-hidden="true" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            {pillar.indicator && <p class="pillar-indicator mono">{pillar.indicator}</p>}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
