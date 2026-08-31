@@ -2,7 +2,7 @@
 
 Web estática del método FÓRMULA. Astro sin framework de UI, estilos propios
 (Tailwind solo como capa de utilidades), servida por nginx en EasyPanel
-(proyecto `automatizaciones/formula-web`).
+(servicio `automatizaciones/formula`).
 
 ## Ejecutar y construir
 
@@ -49,8 +49,13 @@ También se pueden pasar como build args de Docker:
 ## Despliegue
 
 1. Rama `feat/…` o `fix/…` → PR → squash-merge a `main` (nunca commit directo).
-2. El merge dispara el despliegue en EasyPanel (`automatizaciones/formula-web`).
+2. El merge dispara el despliegue en EasyPanel (`automatizaciones/formula`).
 3. Verificar en producción tras el deploy.
+
+`SITE_URL` y `PUBLIC_FORM_ENDPOINT` son **build args, no variables de runtime**:
+el sitio es estático y las lee `npm run build` dentro de la imagen. Ponerlas
+como variables de entorno del servicio en el panel no tiene ningún efecto —
+hay que reconstruir la imagen para que cambien.
 
 ## Pendiente
 
