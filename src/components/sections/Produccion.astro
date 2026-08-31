@@ -12,7 +12,7 @@ import { Icon } from 'astro-icon/components';
       tone="paper"
       titleId="produccion-title"
     />
-    <div class="phases">
+    <div class="phases" data-reveal>
       {
         phases.map((phase, index) => (
           <details class:list={['phase', index === phases.length - 1 && 'phase--final']}>

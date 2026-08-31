@@ -29,6 +29,14 @@
   /* Layout */
   --wrap-max: 1320px;
   --navbar-h: 76px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-reveal: 600ms;
+  --dur-hero: 850ms;
+  --dur-parallax: 400ms;
+  --reveal-shift: 16px;
 }
 
 /* Tipografía y radios, expuestos a Tailwind */

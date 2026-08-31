@@ -9,7 +9,7 @@ const { ctaFinal } = site;
 <section class="section cta-final" aria-labelledby="cta-final-title">
   <div class="wrap">
     <div class="cta-grid">
-      <div class="cta-copy">
+      <div class="cta-copy" data-reveal>
         <p class="eyebrow">{ctaFinal.eyebrow}</p>
         <h2 class="h2" id="cta-final-title">{ctaFinal.title}</h2>
         <p class="lead muted cta-text">{ctaFinal.text}</p>
@@ -20,7 +20,7 @@ const { ctaFinal } = site;
           </Button>
         </div>
       </div>
-      <div class="cta-visual">
+      <div class="cta-visual" data-reveal-hero>
         <Picture
           src={formulaComplete}
           alt={ctaFinal.imageAlt}

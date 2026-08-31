@@ -16,7 +16,7 @@ const { problema } = site;
       titleId="problema-title"
     />
     <div class="compare">
-      <Card tone="paper" class="compare-col compare-col--a">
+      <Card tone="paper" class="compare-col compare-col--a" data-reveal>
         <p class="compare-label mono">{problema.colA.label}</p>
         <h3 class="h3">{problema.colA.title}</h3>
         <ul class="compare-points">
@@ -30,7 +30,7 @@ const { problema } = site;
           }
         </ul>
       </Card>
-      <Card tone="paper" class="compare-col compare-col--b">
+      <Card tone="paper" class="compare-col compare-col--b" data-reveal="1">
         <p class="compare-label mono">{problema.colB.label}</p>
         <h3 class="h3">{problema.colB.title}</h3>
         <ul class="compare-points">

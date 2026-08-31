@@ -12,7 +12,7 @@ import { Icon } from 'astro-icon/components';
       titleId="ejemplos-title"
     />
     <div class="examples" data-examples>
-      <fieldset class="examples-tabs">
+      <fieldset class="examples-tabs" data-reveal>
         <legend class="sr-only">{examplesCopy.groupLabel}</legend>
         {
           examples.map((example, index) => (
@@ -32,7 +32,7 @@ import { Icon } from 'astro-icon/components';
           ))
         }
       </fieldset>
-      <div class="examples-panels" aria-live="polite">
+      <div class="examples-panels" aria-live="polite" data-reveal="1">
         {
           examples.map((example) => (
             <article class="example-panel card card--paper" data-example-panel={example.id}>

@@ -11,7 +11,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
       titleId="motor-title"
     />
     <div class="motor-grid">
-      <form class="motor-form" data-motor-form>
+      <form class="motor-form" data-motor-form data-reveal>
         {
           engineQuestions.map((question, index) => (
             <fieldset class="motor-question">
@@ -44,7 +44,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
           ))
         }
       </form>
-      <div class="motor-aside">
+      <div class="motor-aside" data-reveal="1">
         <div class="terminal">
           <div class="terminal-head" aria-hidden="true">
             <span class="terminal-dot"></span>
