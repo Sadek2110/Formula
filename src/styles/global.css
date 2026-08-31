@@ -37,6 +37,207 @@
     outline-offset: 2px;
   }
 
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Sobre marfil el acento apenas se ve: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento no contrasta sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde apenas se ve sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible,
+  .section--paper summary:focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* En secciones marfil el acento no contrasta: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* En secciones marfil el acento no contrasta: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones claras: el acento no contrasta en marfil */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento apenas contrasta sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones claras: el acento no contrasta en marfil */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible,
+  .card--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* En secciones marfil el acento no contrasta: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El verde de acento apenas se ve sobre marfil: foco oscuro en secciones claras */
+  .section--paper :focus-visible,
+  .card--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre fondo marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible,
+  .card--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre fondos marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde es poco visible sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible,
+  .section--paper :focus-visible + .option-label {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento apenas contrasta sobre marfil: foco oscuro en secciones claras */
+  .section--paper :focus-visible,
+  .section--paper :focus-visible ~ .option-label {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
   img,
   video,
   svg {
@@ -573,9 +774,92 @@
 
   /* Secciones claras */
 
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
   .section--paper {
     background-color: var(--light-bg);
     color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde apenas se ve sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde apenas contrasta sobre marfil: foco oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
   }
 
   .muted-paper {
