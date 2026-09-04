@@ -21,7 +21,7 @@ const {
   class: className,
 } = Astro.props;
 ---
-<div class:list={['section-header', align === 'center' && 'section-header--center', className]}>
+<div class:list={['section-header', align === 'center' && 'section-header--center', className]} data-reveal>
   <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
   <h2 class="h2" id={titleId}>{title}</h2>
   {text && <p class:list={['lead', 'section-header-text', tone === 'paper' ? 'muted-paper' : 'muted']}>{text}</p>}

@@ -58,5 +58,69 @@ const jsonLd = {
     </main>
     <Footer />
     <Grain />
+    <script>
+      const revealEls = document.querySelectorAll('[data-reveal], [data-reveal-hero]');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (revealEls.length > 0) {
+        if (!reduced && 'IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-revealed');
+                  observer.unobserve(entry.target);
+                }
+              }
+            },
+            { threshold: 0.15, rootMargin: '0px 0px -10% 0px' },
+          );
+          revealEls.forEach((el) => observer.observe(el));
+        } else {
+          revealEls.forEach((el) => el.classList.add('is-revealed'));
+        }
+      }
+
+      const ARROW_DIRS: Record<string, string> = {
+        '→': 'r',
+        '↓': 'd',
+        '↑': 'u',
+        '←': 'l',
+      };
+
+      const wrapArrow = (btn: Element) => {
+        for (const node of Array.from(btn.childNodes)) {
+          if (node.nodeType !== Node.TEXT_NODE || !node.textContent) continue;
+          const text = node.textContent;
+          const trimmed = text.trim();
+          const first = trimmed.at(0) ?? '';
+          const last = trimmed.at(-1) ?? '';
+          let arrow = '';
+          let leading = false;
+          if (ARROW_DIRS[last] !== undefined) arrow = last;
+          else if (ARROW_DIRS[first] !== undefined) {
+            arrow = first;
+            leading = true;
+          }
+          if (!arrow) continue;
+
+          const span = document.createElement('span');
+          span.className = 'btn-arrow';
+          span.dataset.dir = ARROW_DIRS[arrow]!;
+          span.textContent = arrow;
+
+          const index = leading ? text.indexOf(arrow) : text.lastIndexOf(arrow);
+          const remainder = leading
+            ? text.slice(index + 1)
+            : text.slice(0, index);
+          const textNode = document.createTextNode(remainder);
+          if (leading) node.replaceWith(span, textNode);
+          else node.replaceWith(textNode, span);
+          break;
+        }
+      };
+
+      document.querySelectorAll('.btn').forEach(wrapArrow);
+    </script>
   </body>
 </html>

@@ -37,6 +37,207 @@
     outline-offset: 2px;
   }
 
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Sobre marfil el acento apenas se ve: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento no contrasta sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde apenas se ve sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible,
+  .section--paper summary:focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* En secciones marfil el acento no contrasta: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* En secciones marfil el acento no contrasta: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones claras: el acento no contrasta en marfil */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento apenas contrasta sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones claras: el acento no contrasta en marfil */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible,
+  .card--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* En secciones marfil el acento no contrasta: outline oscuro */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre secciones marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El verde de acento apenas se ve sobre marfil: foco oscuro en secciones claras */
+  .section--paper :focus-visible,
+  .card--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre fondo marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible,
+  .card--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre fondos marfil: el acento no contrasta ahí */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde es poco visible sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible,
+  .section--paper :focus-visible + .option-label {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento apenas contrasta sobre marfil: foco oscuro en secciones claras */
+  .section--paper :focus-visible,
+  .section--paper :focus-visible ~ .option-label {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
   img,
   video,
   svg {
@@ -59,6 +260,15 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+
+    html.js [data-reveal],
+    html.js [data-reveal-hero] {
+      translate: none !important;
+      scale: none !important;
+      transition-property: opacity !important;
+      transition-duration: 180ms !important;
+      transition-delay: 0ms !important;
     }
   }
 }
@@ -564,9 +774,92 @@
 
   /* Secciones claras */
 
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
   .section--paper {
     background-color: var(--light-bg);
     color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* Foco visible sobre marfil: el acento claro no contrasta */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde apenas se ve sobre marfil: outline oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
+  }
+
+  /* El acento verde apenas contrasta sobre marfil: foco oscuro en secciones claras */
+  .section--paper :focus-visible {
+    outline-color: var(--light-text);
   }
 
   .muted-paper {
@@ -736,6 +1029,29 @@
   .formula-visual-sticky {
     position: sticky;
     top: calc(var(--navbar-h) + 2rem);
+  }
+
+  .formula-visual-sticky img,
+  .formula-visual-sticky video {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  [data-formula-static] {
+    block-size: 100%;
+  }
+
+  [data-formula-static].is-hidden {
+    display: none;
+  }
+
+  .formula-video {
+    display: none;
+  }
+
+  .formula-video.is-active {
+    display: block;
   }
 
   .steps {
@@ -1164,6 +1480,16 @@
     padding: clamp(1.5rem, 4vw, 2.5rem);
     display: grid;
     gap: 2rem;
+    transition:
+      border-color 200ms ease,
+      translate 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .example-panel:hover {
+      translate: 0 -2px;
+      border-color: color-mix(in oklab, var(--light-muted) 45%, transparent);
+    }
   }
 
   @media (min-width: 1024px) {
@@ -1319,6 +1645,16 @@
     background-color: color-mix(in oklab, var(--light-bg) 78%, white);
     border: 1px solid color-mix(in oklab, var(--light-muted) 22%, transparent);
     border-radius: var(--radius-sm);
+    transition:
+      border-color 200ms ease,
+      translate 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .phase:not(.phase--final):hover {
+      border-color: color-mix(in oklab, var(--light-muted) 45%, transparent);
+      translate: 0 -2px;
+    }
   }
 
   .phase--final {
@@ -1540,6 +1876,16 @@
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-card);
+    transition:
+      border-color 200ms ease,
+      translate 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .pillar:hover {
+      translate: 0 -2px;
+      border-color: color-mix(in oklab, var(--text-muted) 45%, transparent);
+    }
   }
 
   .pillar-icon {
@@ -1859,5 +2205,89 @@
     font-size: 0.6875rem;
     letter-spacing: 0.16em;
     color: var(--accent);
+  }
+
+  /* Reveal de entrada (solo sin prefers-reduced-motion) */
+
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal] {
+      opacity: 0;
+      translate: 0 var(--reveal-shift);
+      transition:
+        opacity var(--dur-reveal) ease,
+        translate var(--dur-reveal) var(--ease-out);
+    }
+
+    .js [data-reveal].is-revealed {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    .js [data-reveal='1'] {
+      transition-delay: 80ms;
+    }
+
+    .js [data-reveal='2'] {
+      transition-delay: 160ms;
+    }
+
+    .js [data-reveal='3'] {
+      transition-delay: 240ms;
+    }
+
+    .js [data-reveal-hero] {
+      opacity: 0;
+      scale: 0.97;
+      transition:
+        opacity var(--dur-hero) var(--ease-out),
+        scale var(--dur-hero) var(--ease-out);
+    }
+
+    .js [data-reveal-hero].is-revealed {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal],
+    .js [data-reveal-hero] {
+      opacity: 0;
+      transition: opacity var(--dur-fast) ease;
+    }
+
+    .js [data-reveal].is-revealed,
+    .js [data-reveal-hero].is-revealed {
+      opacity: 1;
+    }
+  }
+
+  /* Flechas de botones (hover 3–4 px) */
+
+  .btn-arrow {
+    display: inline-block;
+    margin-inline-start: -0.2rem;
+    transition: translate var(--dur-fast) ease;
+  }
+
+  .btn-arrow[data-dir='l'] {
+    margin-inline-start: 0;
+    margin-inline-end: -0.2rem;
+  }
+
+  .btn:hover .btn-arrow {
+    translate: 3px 0;
+  }
+
+  .btn:hover .btn-arrow[data-dir='d'] {
+    translate: 0 3px;
+  }
+
+  .btn:hover .btn-arrow[data-dir='u'] {
+    translate: 0 -3px;
+  }
+
+  .btn:hover .btn-arrow[data-dir='l'] {
+    translate: -3px 0;
   }
 }
